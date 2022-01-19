@@ -1,12 +1,19 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function Form() {
+  const [amount, setAmount] = useState<string>("");
+
   return (
     <StyledForm>
       <label>Total amount</label>
       <Field>
         <div>$</div>
-        <StyledInput type="number" />
+        <StyledInput
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
       </Field>
       <label>Reach goal by</label>
       <Field>

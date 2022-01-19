@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { StyledToggleSwitchProps } from "../types/types";
 
 export default function ToggleSwitch() {
-  const [toggleOn, setToggleOn] = useState(true);
+  const [toggleOn, setToggleOn] = useState<boolean>(true);
 
   return (
     <StyledToggleSwitch

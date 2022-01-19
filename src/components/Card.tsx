@@ -5,7 +5,7 @@ export default function Card() {
     <StyledCard>
       <Row>
         <Label>Monthly amount</Label>
-        <MonthlyAmount>$961.53</MonthlyAmount>
+        <MonthlyAmount>$0.00</MonthlyAmount>
       </Row>
       <Description>
         You are planning 26 montly deposits to reach your $25, 000 goal by April
@@ -48,7 +48,7 @@ const MonthlyAmount = styled.div`
 `;
 
 const Description = styled.div`
-  width: 308px;
+  width: 306px;
   height: 47px;
   padding: 10px 25px;
   background: #f4f8fa;
