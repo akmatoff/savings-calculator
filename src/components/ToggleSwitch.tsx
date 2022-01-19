@@ -1,26 +1,35 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { StyledToggleSwitchProps } from "../types/types";
 
 export default function ToggleSwitch() {
+  const [toggleOn, setToggleOn] = useState(true);
+
   return (
-    <StyledToggleSwitch>
+    <StyledToggleSwitch
+      toggleOn={toggleOn}
+      onClick={() => setToggleOn(!toggleOn)}
+    >
       <div></div>
     </StyledToggleSwitch>
   );
 }
 
-const StyledToggleSwitch = styled.div`
+const StyledToggleSwitch = styled.div<StyledToggleSwitchProps>`
   width: 38px;
   height: 18px;
   padding: 1px;
+  padding-left: ${({ toggleOn }) => (toggleOn ? "21px" : "1px")};
   background: "#FFFFFF";
   border: 1px solid #cfcfcf;
   border-radius: 9px;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 
   div {
     width: 14px;
     height: 14px;
-    background: #2f80ed;
+    background: ${({ toggleOn }) => (toggleOn ? "#2f80ed" : "#cfcfcf;")};
     border-radius: 100%;
   }
 
