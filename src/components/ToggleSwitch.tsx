@@ -15,6 +15,7 @@ const StyledToggleSwitch = styled.div`
   background: "#FFFFFF";
   border: 1px solid #cfcfcf;
   border-radius: 9px;
+  cursor: pointer;
 
   div {
     width: 14px;
