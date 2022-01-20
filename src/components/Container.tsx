@@ -4,8 +4,14 @@ import ToggleSwitch from "./ToggleSwitch";
 import Form from "./Form";
 import Card from "./Card";
 import Button from "./Button";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export default function Container() {
+  const modeToggledOn = useSelector(
+    (state: RootState) => state.calc.modeToggledOn
+  );
+
   return (
     <StyledContainer>
       <h1>
@@ -13,7 +19,11 @@ export default function Container() {
       </h1>
       <div style={{ display: "flex" }}>
         <ToggleSwitch />
-        <span>Calculate by total amount</span>
+        <span>
+          {modeToggledOn
+            ? "Calculate by total amount"
+            : "Calculate by monthly deposit"}
+        </span>
       </div>
       <Form />
       <Card />

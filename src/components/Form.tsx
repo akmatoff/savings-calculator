@@ -5,16 +5,27 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { setTotalAmount, setGoalReachDate } from "../redux/calcSlice";
+import {
+  setTotalAmount,
+  setGoalReachDate,
+  setMonthlyDeposit,
+} from "../redux/calcSlice";
 
 export default function Form() {
   const totalAmount = useSelector((state: RootState) => state.calc.totalAmount);
+  const monthlyDeposit = useSelector(
+    (state: RootState) => state.calc.monthlyDeposit
+  );
+  const modeToggledOn = useSelector(
+    (state: RootState) => state.calc.modeToggledOn
+  );
   const goalReachDate = useSelector(
     (state: RootState) => state.calc.goalReachDate
   );
 
   const dispatch = useDispatch<AppDispatch>();
 
+  // Custom date input for the react datepicker
   const DateInput = forwardRef<
     HTMLInputElement,
     React.DetailedHTMLProps<
@@ -48,13 +59,17 @@ export default function Form() {
 
   return (
     <StyledForm>
-      <label>Total amount</label>
+      <label>{modeToggledOn ? "Total amount" : "Monthly deposit"}</label>
       <Field>
         <InputButton>$</InputButton>
         <StyledInput
           type="number"
-          value={totalAmount}
-          onChange={(e) => dispatch(setTotalAmount(e.target.value.toString()))}
+          value={modeToggledOn ? totalAmount : monthlyDeposit}
+          onChange={(e) =>
+            modeToggledOn
+              ? dispatch(setTotalAmount(e.target.value))
+              : dispatch(setMonthlyDeposit(e.target.value))
+          }
         />
       </Field>
       <label>Reach goal by</label>

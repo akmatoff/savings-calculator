@@ -3,7 +3,8 @@ import { CalcState } from "../types/types";
 
 const initialState: CalcState = {
   modeToggledOn: true,
-  totalAmount: "",
+  totalAmount: 0,
+  monthlyDeposit: 0,
   goalReachDate: new Date(),
   monthlyAmount: 0
 }
@@ -15,8 +16,10 @@ const calcSlice = createSlice({
     switchToggle: (state) => {
       return {...state, modeToggledOn: !state.modeToggledOn}
     },
+    setMonthlyDeposit: (state, action) => {
+      return {...state, monthlyDeposit: action.payload}
+    },
     setTotalAmount: (state, action) => {
-      if (state.totalAmount[0] === '0' && action.payload === '0') return;
       return {...state, totalAmount: action.payload}
     },
     setGoalReachDate: (state, action) => {
@@ -25,6 +28,6 @@ const calcSlice = createSlice({
   }
 })
 
-export const { switchToggle, setTotalAmount, setGoalReachDate } = calcSlice.actions;
+export const { switchToggle, setTotalAmount, setMonthlyDeposit, setGoalReachDate } = calcSlice.actions;
 
 export default calcSlice.reducer;

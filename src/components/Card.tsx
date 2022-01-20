@@ -1,10 +1,17 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+import { RootState } from "../redux/store";
+
 export default function Card() {
+  const modeToggledOn = useSelector(
+    (state: RootState) => state.calc.modeToggledOn
+  );
+
   return (
     <StyledCard>
       <Row>
-        <Label>Monthly amount</Label>
+        <Label>{modeToggledOn ? "Monthly amount" : "Savings"}</Label>
         <MonthlyAmount>$0.00</MonthlyAmount>
       </Row>
       <Description>
