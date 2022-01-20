@@ -1,10 +1,10 @@
 export interface StyledToggleSwitchProps {
-  toggleOn: boolean;
+  toggledOn: boolean;
 }
 
 export interface CalcState {
   modeToggledOn: boolean;
-  totalAmount: number;
+  totalAmount: string;
   goalReachDate: Date;
   monthlyAmount: number;
 }

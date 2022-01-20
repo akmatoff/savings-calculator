@@ -1,7 +1,10 @@
 import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
+import calcSlice from "./calcSlice";
 
 const store: EnhancedStore = configureStore({
-  reducer: {}
+  reducer: {
+    calc: calcSlice
+  }
 })
 
 export default store;

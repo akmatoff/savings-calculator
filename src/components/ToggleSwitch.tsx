@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { AppDispatch, RootState } from "../redux/store";
+import { switchToggle } from "../redux/calcSlice";
 import { StyledToggleSwitchProps } from "../types/types";
 
 export default function ToggleSwitch() {
-  const [toggleOn, setToggleOn] = useState<boolean>(true);
+  const toggledOn = useSelector((state: RootState) => state.calc.modeToggledOn);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <StyledToggleSwitch
-      toggleOn={toggleOn}
-      onClick={() => setToggleOn(!toggleOn)}
+      toggledOn={toggledOn}
+      onClick={() => dispatch(switchToggle())}
     >
       <div></div>
     </StyledToggleSwitch>
@@ -19,7 +23,7 @@ const StyledToggleSwitch = styled.div<StyledToggleSwitchProps>`
   width: 38px;
   height: 18px;
   padding: 1px;
-  padding-left: ${({ toggleOn }) => (toggleOn ? "21px" : "1px")};
+  padding-left: ${({ toggledOn }) => (toggledOn ? "21px" : "1px")};
   background: "#FFFFFF";
   border: 1px solid #cfcfcf;
   border-radius: 9px;
@@ -29,7 +33,7 @@ const StyledToggleSwitch = styled.div<StyledToggleSwitchProps>`
   div {
     width: 14px;
     height: 14px;
-    background: ${({ toggleOn }) => (toggleOn ? "#2f80ed" : "#cfcfcf;")};
+    background: ${({ toggledOn }) => (toggledOn ? "#2f80ed" : "#cfcfcf;")};
     border-radius: 100%;
   }
 

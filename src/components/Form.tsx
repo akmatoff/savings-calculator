@@ -1,11 +1,19 @@
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
+import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import styled from "styled-components";
+
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { setTotalAmount, setGoalReachDate } from "../redux/calcSlice";
 
 export default function Form() {
-  const [amount, setAmount] = useState<string>("");
-  const [date, setDate] = useState<Date>(new Date());
+  const totalAmount = useSelector((state: RootState) => state.calc.totalAmount);
+  const goalReachDate = useSelector(
+    (state: RootState) => state.calc.goalReachDate
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const DateInput = forwardRef<
     HTMLInputElement,
@@ -23,11 +31,19 @@ export default function Form() {
   ));
 
   const addToDate = () => {
-    setDate(new Date(date.setMonth(date.getMonth() + 1)));
+    dispatch(
+      setGoalReachDate(
+        new Date(goalReachDate.setMonth(goalReachDate.getMonth() + 1))
+      )
+    );
   };
 
   const subtractFromDate = () => {
-    setDate(new Date(date.setMonth(date.getMonth() - 1)));
+    dispatch(
+      setGoalReachDate(
+        new Date(goalReachDate.setMonth(goalReachDate.getMonth() - 1))
+      )
+    );
   };
 
   return (
@@ -37,8 +53,8 @@ export default function Form() {
         <InputButton>$</InputButton>
         <StyledInput
           type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          value={totalAmount}
+          onChange={(e) => dispatch(setTotalAmount(e.target.value.toString()))}
         />
       </Field>
       <label>Reach goal by</label>
@@ -47,8 +63,8 @@ export default function Form() {
         <DatePicker
           dateFormat="MMMM yyyy"
           showMonthYearPicker
-          selected={date}
-          onChange={(date: Date) => setDate(date)}
+          selected={goalReachDate}
+          onChange={(date: Date) => dispatch(setGoalReachDate(date))}
           customInput={<DateInput />}
         />
         <InputButton onClick={addToDate}>&gt;</InputButton>
