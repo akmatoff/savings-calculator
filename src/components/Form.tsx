@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, ChangeEvent } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,6 +9,7 @@ import {
   setTotalAmount,
   setGoalReachDate,
   setMonthlyDeposit,
+  calculate,
 } from "../redux/calcSlice";
 
 export default function Form() {
@@ -47,6 +48,7 @@ export default function Form() {
         new Date(goalReachDate.setMonth(goalReachDate.getMonth() + 1))
       )
     );
+    dispatch(calculate());
   };
 
   const subtractFromDate = () => {
@@ -55,6 +57,20 @@ export default function Form() {
         new Date(goalReachDate.setMonth(goalReachDate.getMonth() - 1))
       )
     );
+    dispatch(calculate());
+  };
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    modeToggledOn
+      ? dispatch(setTotalAmount(e.target.value))
+      : dispatch(setMonthlyDeposit(e.target.value));
+
+    dispatch(calculate());
+  };
+
+  const onDateChange = (date: Date) => {
+    dispatch(setGoalReachDate(date));
+    dispatch(calculate());
   };
 
   return (
@@ -65,11 +81,7 @@ export default function Form() {
         <StyledInput
           type="number"
           value={modeToggledOn ? totalAmount : monthlyDeposit}
-          onChange={(e) =>
-            modeToggledOn
-              ? dispatch(setTotalAmount(e.target.value))
-              : dispatch(setMonthlyDeposit(e.target.value))
-          }
+          onChange={onInputChange}
         />
       </Field>
       <label>Reach goal by</label>
@@ -79,7 +91,7 @@ export default function Form() {
           dateFormat="MMMM yyyy"
           showMonthYearPicker
           selected={goalReachDate}
-          onChange={(date: Date) => dispatch(setGoalReachDate(date))}
+          onChange={onDateChange}
           customInput={<DateInput />}
         />
         <InputButton onClick={addToDate}>&gt;</InputButton>

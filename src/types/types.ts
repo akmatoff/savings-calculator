@@ -8,4 +8,5 @@ export interface CalcState {
   monthlyDeposit: number;
   goalReachDate: Date;
   monthlyAmount: number;
+  savings: number;
 }
