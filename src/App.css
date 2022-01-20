@@ -31,3 +31,9 @@ a {
   color: #2f80ed;
   margin: 50px 0;
 }
+
+.react-datepicker-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

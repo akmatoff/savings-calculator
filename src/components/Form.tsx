@@ -1,14 +1,40 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 
 export default function Form() {
   const [amount, setAmount] = useState<string>("");
+  const [date, setDate] = useState<Date>(new Date());
+
+  const DateInput = forwardRef<
+    HTMLInputElement,
+    React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >
+  >(({ value, onClick, onChange }, ref) => (
+    <StyledInput
+      ref={ref}
+      onClick={onClick}
+      onChange={onChange}
+      value={value}
+    />
+  ));
+
+  const addToDate = () => {
+    setDate(new Date(date.setMonth(date.getMonth() + 1)));
+  };
+
+  const subtractFromDate = () => {
+    setDate(new Date(date.setMonth(date.getMonth() - 1)));
+  };
 
   return (
     <StyledForm>
       <label>Total amount</label>
       <Field>
-        <div>$</div>
+        <InputButton>$</InputButton>
         <StyledInput
           type="number"
           value={amount}
@@ -17,9 +43,15 @@ export default function Form() {
       </Field>
       <label>Reach goal by</label>
       <Field>
-        <div>&lt;</div>
-        <StyledInput />
-        <div>&gt;</div>
+        <InputButton onClick={subtractFromDate}>&lt;</InputButton>
+        <DatePicker
+          dateFormat="MMMM yyyy"
+          showMonthYearPicker
+          selected={date}
+          onChange={(date: Date) => setDate(date)}
+          customInput={<DateInput />}
+        />
+        <InputButton onClick={addToDate}>&gt;</InputButton>
       </Field>
     </StyledForm>
   );
@@ -44,16 +76,17 @@ const Field = styled.div`
   margin-bottom: 15px;
   border: 1px solid #cfcfcf;
   border-radius: 4px;
+`;
 
-  div {
-    width: 42px;
-    height: 40px;
-    display: grid;
-    place-content: center;
-    background: #f4f8fa;
-    border-radius: 4px 0px 0px 4px;
-    color: #828282;
-  }
+const InputButton = styled.div`
+  width: 42px;
+  height: 40px;
+  display: grid;
+  place-content: center;
+  background: #f4f8fa;
+  border-radius: 4px 0px 0px 4px;
+  color: #828282;
+  cursor: pointer;
 `;
 
 const StyledInput = styled.input`
@@ -65,4 +98,5 @@ const StyledInput = styled.input`
   font-size: 18px;
   line-height: 22px;
   color: #000000;
+  background: none;
 `;
