@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CalcState } from "../types/types";
 
 const initialState: CalcState = {
@@ -7,7 +7,8 @@ const initialState: CalcState = {
   monthlyDeposit: 0,
   goalReachDate: new Date(Date.now()),
   monthlyAmount: 0,
-  savings: 0
+  savings: 0,
+  monthsCount: 0
 }
 
 const calcSlice = createSlice({
@@ -17,24 +18,22 @@ const calcSlice = createSlice({
     switchToggle: (state) => {
       return {...state, modeToggledOn: !state.modeToggledOn}
     },
-    setMonthlyDeposit: (state, action) => {
+    setMonthlyDeposit: (state, action: PayloadAction<number>) => {
       return {...state, monthlyDeposit: action.payload}
     },
-    setTotalAmount: (state, action) => {
+    setTotalAmount: (state, action: PayloadAction<number>) => {
       return {...state, totalAmount: action.payload}
     },
-    setGoalReachDate: (state, action) => {
+    setGoalReachDate: (state, action: PayloadAction<Date>) => {
       return {...state, goalReachDate: action.payload}
     },
     calculate: (state) => {
       const currentDate = new Date(Date.now());
-      if (!state.modeToggledOn) {
-        var monthsCount = (state.goalReachDate.getFullYear() - currentDate.getFullYear()) * 12;  
+      var monthsCount = (state.goalReachDate.getFullYear() - currentDate.getFullYear()) * 12;  
         monthsCount -= currentDate.getMonth();
         monthsCount += state.goalReachDate.getMonth();
 
-        return {...state, savings: state.monthlyDeposit * monthsCount}
-      }
+      return {...state, savings: (state.monthlyDeposit * monthsCount), monthlyAmount: (state.totalAmount / monthsCount), monthsCount: monthsCount}
     }
   }
 })

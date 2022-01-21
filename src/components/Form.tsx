@@ -62,8 +62,8 @@ export default function Form() {
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     modeToggledOn
-      ? dispatch(setTotalAmount(e.target.value))
-      : dispatch(setMonthlyDeposit(e.target.value));
+      ? dispatch(setTotalAmount(Number(e.target.value)))
+      : dispatch(setMonthlyDeposit(Number(e.target.value)));
 
     dispatch(calculate());
   };

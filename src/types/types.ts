@@ -9,4 +9,5 @@ export interface CalcState {
   goalReachDate: Date;
   monthlyAmount: number;
   savings: number;
+  monthsCount: number;
 }

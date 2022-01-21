@@ -14,29 +14,37 @@ export default function Card() {
   const goalReachDate = useSelector(
     (state: RootState) => state.calc.goalReachDate
   );
+  const totalAmount = useSelector((state: RootState) => state.calc.totalAmount);
+  const monthsCount = useSelector((state: RootState) => state.calc.monthsCount);
+
+  const getDateMonthYear = () => {
+    return (
+      goalReachDate.toLocaleString("default", { month: "long" }) +
+      " " +
+      goalReachDate.getFullYear()
+    );
+  };
 
   return modeToggledOn ? (
     <StyledCard>
       <Row>
         <Label>Monthly Amount</Label>
-        <MonthlyAmount>${monthlyAmount}</MonthlyAmount>
+        <MonthlyAmount>${monthlyAmount.toFixed(2)}</MonthlyAmount>
       </Row>
       <Description>
-        You are planning 26 montly deposits to reach your $25, 000 goal by April
-        2022.
+        You are planning {monthsCount} monthly deposits to reach your $
+        {totalAmount} goal by {getDateMonthYear()}
       </Description>
     </StyledCard>
   ) : (
     <StyledCard>
       <Row>
         <Label>Savings</Label>
-        <MonthlyAmount>${savings}</MonthlyAmount>
+        <MonthlyAmount>${savings.toFixed(2)}</MonthlyAmount>
       </Row>
       <Description>
-        You are saving ${savings} by{" "}
-        {goalReachDate.toLocaleString("default", { month: "long" }) +
-          " " +
-          goalReachDate.getFullYear()}
+        You are saving <strong>${savings.toFixed(2)}</strong> by{" "}
+        <strong>{getDateMonthYear()}</strong>
       </Description>
     </StyledCard>
   );
