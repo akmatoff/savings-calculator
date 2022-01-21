@@ -6,7 +6,7 @@ export interface CalcState {
   modeToggledOn: boolean;
   totalAmount: number;
   monthlyDeposit: number;
-  goalReachDate: Date;
+  goalReachDate: string;
   monthlyAmount: number;
   savings: number;
   monthsCount: number;

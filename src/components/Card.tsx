@@ -18,10 +18,11 @@ export default function Card() {
   const monthsCount = useSelector((state: RootState) => state.calc.monthsCount);
 
   const getDateMonthYear = () => {
+    let date = new Date(Date.parse(goalReachDate));
     return (
-      goalReachDate.toLocaleString("default", { month: "long" }) +
+      date.toLocaleString("default", { month: "long" }) +
       " " +
-      goalReachDate.getFullYear()
+      date.getFullYear()
     );
   };
 
@@ -29,7 +30,12 @@ export default function Card() {
     <StyledCard>
       <Row>
         <Label>Monthly Amount</Label>
-        <MonthlyAmount>${monthlyAmount.toFixed(2)}</MonthlyAmount>
+        <MonthlyAmount>
+          $
+          {isNaN(monthlyAmount) || !isFinite(monthlyAmount)
+            ? 0.0
+            : monthlyAmount.toFixed(2)}
+        </MonthlyAmount>
       </Row>
       <Description>
         You are planning {monthsCount} monthly deposits to reach your $
@@ -40,7 +46,9 @@ export default function Card() {
     <StyledCard>
       <Row>
         <Label>Savings</Label>
-        <MonthlyAmount>${savings.toFixed(2)}</MonthlyAmount>
+        <MonthlyAmount>
+          ${isNaN(savings) || !isFinite(savings) ? 0.0 : savings.toFixed(2)}
+        </MonthlyAmount>
       </Row>
       <Description>
         You are saving <strong>${savings.toFixed(2)}</strong> by{" "}

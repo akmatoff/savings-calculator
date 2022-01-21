@@ -43,18 +43,23 @@ export default function Form() {
   ));
 
   const addToDate = () => {
+    let date = new Date(Date.parse(goalReachDate));
     dispatch(
       setGoalReachDate(
-        new Date(goalReachDate.setMonth(goalReachDate.getMonth() + 1))
+        new Date(date.setMonth(date.getMonth() + 1)).toLocaleString()
       )
     );
     dispatch(calculate());
   };
 
   const subtractFromDate = () => {
+    let date = new Date(Date.parse(goalReachDate));
+
+    if (date < new Date(Date.now())) return;
+
     dispatch(
       setGoalReachDate(
-        new Date(goalReachDate.setMonth(goalReachDate.getMonth() - 1))
+        new Date(date.setMonth(date.getMonth() - 1)).toLocaleString()
       )
     );
     dispatch(calculate());
@@ -69,7 +74,7 @@ export default function Form() {
   };
 
   const onDateChange = (date: Date) => {
-    dispatch(setGoalReachDate(date));
+    dispatch(setGoalReachDate(date.toLocaleString()));
     dispatch(calculate());
   };
 
@@ -80,7 +85,9 @@ export default function Form() {
         <InputButton>$</InputButton>
         <StyledInput
           type="number"
-          value={modeToggledOn ? totalAmount : monthlyDeposit}
+          value={
+            modeToggledOn ? totalAmount.toString() : monthlyDeposit.toString()
+          }
           onChange={onInputChange}
         />
       </Field>
@@ -90,7 +97,8 @@ export default function Form() {
         <DatePicker
           dateFormat="MMMM yyyy"
           showMonthYearPicker
-          selected={goalReachDate}
+          minDate={new Date(Date.now())}
+          selected={new Date(Date.parse(goalReachDate))}
           onChange={onDateChange}
           customInput={<DateInput />}
         />
