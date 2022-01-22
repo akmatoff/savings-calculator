@@ -11,6 +11,7 @@ export default function ToggleSwitch() {
 
   return (
     <StyledToggleSwitch
+      data-testid="toggle-switch"
       toggledOn={toggledOn}
       onClick={() => dispatch(switchToggle())}
     >

@@ -35,6 +35,7 @@ export default function Form() {
     >
   >(({ value, onClick, onChange, id }, ref) => (
     <StyledInput
+      data-testid="date-input"
       id={id}
       ref={ref}
       onClick={onClick}
@@ -87,6 +88,7 @@ export default function Form() {
       <Field>
         <InputButton>$</InputButton>
         <StyledInput
+          data-testid="amount-input"
           id="amount"
           type="number"
           value={
