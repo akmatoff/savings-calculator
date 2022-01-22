@@ -18,27 +18,6 @@ test("includes toggle switch", () => {
   expect(toggleSwitch).toBeInTheDocument();
 });
 
-test("includes amount input", () => {
-  render(<Container />);
-
-  const input = screen.getByLabelText(/Total amount|Monthly Deposit/gi);
-  expect(input).toBeInTheDocument();
-});
-
-test("includes date input", () => {
-  render(<Container />);
-
-  const input = screen.getByLabelText(/Reach goal by/gi);
-  expect(input).toBeInTheDocument();
-});
-
-test("includes result", () => {
-  render(<Container />);
-
-  const calcResult = screen.getByTestId("result");
-  expect(calcResult).toBeInTheDocument();
-});
-
 test("The result is $657.89 when total amount is set to 25000 and date to March 2025", () => {
   render(<Container />);
 
