@@ -33,8 +33,9 @@ export default function Form() {
       React.InputHTMLAttributes<HTMLInputElement>,
       HTMLInputElement
     >
-  >(({ value, onClick, onChange }, ref) => (
+  >(({ value, onClick, onChange, id }, ref) => (
     <StyledInput
+      id={id}
       ref={ref}
       onClick={onClick}
       onChange={onChange}
@@ -80,10 +81,13 @@ export default function Form() {
 
   return (
     <StyledForm>
-      <label>{modeToggledOn ? "Total amount" : "Monthly deposit"}</label>
+      <label htmlFor="amount">
+        {modeToggledOn ? "Total amount" : "Monthly deposit"}
+      </label>
       <Field>
         <InputButton>$</InputButton>
         <StyledInput
+          id="amount"
           type="number"
           value={
             modeToggledOn ? totalAmount.toString() : monthlyDeposit.toString()
@@ -91,10 +95,11 @@ export default function Form() {
           onChange={onInputChange}
         />
       </Field>
-      <label>Reach goal by</label>
+      <label htmlFor="goal-reach-date">Reach goal by</label>
       <Field>
         <InputButton onClick={subtractFromDate}>&lt;</InputButton>
         <DatePicker
+          id="goal-reach-date"
           dateFormat="MMMM yyyy"
           showMonthYearPicker
           minDate={new Date(Date.now())}

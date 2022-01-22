@@ -30,7 +30,7 @@ export default function Card() {
     <StyledCard>
       <Row>
         <Label>Monthly Amount</Label>
-        <MonthlyAmount>
+        <MonthlyAmount data-testid="result">
           $
           {isNaN(monthlyAmount) || !isFinite(monthlyAmount)
             ? 0.0
@@ -46,7 +46,7 @@ export default function Card() {
     <StyledCard>
       <Row>
         <Label>Savings</Label>
-        <MonthlyAmount>
+        <MonthlyAmount data-testid="result">
           ${isNaN(savings) || !isFinite(savings) ? 0.0 : savings.toFixed(2)}
         </MonthlyAmount>
       </Row>
