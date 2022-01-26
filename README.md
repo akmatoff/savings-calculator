@@ -1,4 +1,4 @@
-![App Screenshot](https://gcdn.pbrd.co/images/W5mL1ZVgQuHs.png?o=1)
+![App Screenshot](https://i.ibb.co/vmgTnyJ/savings-calculator.jpg)
 
 # Savings Calculator
 
