@@ -76,7 +76,9 @@ export default function Form() {
   };
 
   const onDateChange = (date: Date) => {
-    dispatch(setGoalReachDate(date.toLocaleString()));
+    dispatch(
+      setGoalReachDate(date.toLocaleString("en-GB", { timeZone: "UTC" }))
+    );
     dispatch(calculate());
   };
 
